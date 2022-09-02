@@ -24,12 +24,11 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
     // Handle messages from the webview
     this._view.webview.onDidReceiveMessage(
       message => {
+        // var nl = nlp("London is calling");
         switch (message.command) {
           case 'alert':
-            vscode.window.showErrorMessage(message.text);
-            // var msg = nlp(message.text);
             // msg.verbs().toNegative();
-            // vscode.window.showErrorMessage(msg.text());
+            vscode.window.showInformationMessage("This is a message");
             return;
           case 'debug':
             vscode.commands.executeCommand("workbench.action.debug.start");
