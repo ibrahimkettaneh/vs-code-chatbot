@@ -5,7 +5,7 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
 
   private _view?: vscode.WebviewView;
 
-  constructor(private readonly _extensionUri: vscode.Uri) {}
+  constructor(private readonly _extensionUri: vscode.Uri) { }
 
   resolveWebviewView(
     webviewView: vscode.WebviewView,
@@ -20,6 +20,23 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionUri],
     };
     webviewView.webview.html = this.getHtmlContent(webviewView.webview);
+    // Handle messages from the webview
+    this._view.webview.onDidReceiveMessage(
+      message => {
+        switch (message.command) {
+          case 'alert':
+            vscode.window.showErrorMessage(message.text);
+            // var msg = nlp(message.text);
+            // msg.verbs().toNegative();
+            // vscode.window.showErrorMessage(msg.text());
+            return;
+          case 'debug':
+            vscode.commands.executeCommand("workbench.action.debug.start");
+            return;
+        }
+      },
+      null,
+    );
   }
 
   private getHtmlContent(webview: vscode.Webview): string {
@@ -65,18 +82,15 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
 			<section class="wrapper">
       <div class="container">
             <div class="content">
-                <h2 class="subtitle">Subscribe today</h2>
-                <input type="text" class="mail" placeholder="Your email address" name="mail" required>
-                
-                <button class="add-color-button">Subscribe</button>
-                
-                <p class="text">We won’t send you spam.</p>
-                <p class="text">Unsubscribe at any time.</p>
-                
+              <ul id="messages">
+              <li>Hello! This is a chatbot for installing extensions & themes. I can also check VS Code and language specific documentation!</li>
+              </ul>
             </div>
+              <input id="messageBox" type="text" placeholder="Send a message" required>
+              <button id="sendButton" class="add-color-button">🗨</button>
       </div>
 			</section>
-			<!--<script nonce="${nonce}" src="${scriptUri}"></script>-->
+			<script nonce="${nonce}" src="${scriptUri}"></script>
       </body>
 
 			</html>`;
