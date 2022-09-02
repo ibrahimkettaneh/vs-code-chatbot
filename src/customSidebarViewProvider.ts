@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import nlp from 'compromise';
 
 export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = "vscodeSidebar.openview";
