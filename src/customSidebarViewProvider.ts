@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
-import nlp from 'compromise';
+// import nlp from 'compromise';
+var nlp = require('compromise');
 
 export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = "vscodeSidebar.openview";
@@ -24,11 +25,11 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
     // Handle messages from the webview
     this._view.webview.onDidReceiveMessage(
       message => {
-        // var nl = nlp("London is calling");
+        let msg = nlp(message.text)
         switch (message.command) {
           case 'alert':
-            // msg.verbs().toNegative();
-            vscode.window.showInformationMessage("This is a message");
+            msg.verbs().toPastTense();
+            vscode.window.showInformationMessage(msg.text());
             return;
           case 'debug':
             vscode.commands.executeCommand("workbench.action.debug.start");
