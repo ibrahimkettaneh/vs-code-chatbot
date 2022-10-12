@@ -25,21 +25,26 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
     // Handle messages from the webview
     this._view.webview.onDidReceiveMessage(
       message => {
-        let msg = nlp(message.text)
-        msg = msg.verbs().text();
-        vscode.window.showInformationMessage(msg);
-        // if (msg = 'is calling') {
-        //   vscode.window.showInformationMessage("great");
-        // } else {
-        //   vscode.window.showInformationMessage(msg);
-        // };
-        // switch (message.command) {
-        //   case 'alert':
-        //     return;
-        //   case 'debug':
-        //     vscode.commands.executeCommand("workbench.action.debug.start");
-        //     return;
+        // let msg = nlp(message.text).verbs().first();
+        // // msg = msg.verbs().first();
+        // msg = msg.verbs().toInfinitive().toLowerCase();
+        // // msg = msg.verbs();
+        // vscode.window.showInformationMessage(msg.text());
+        // if (msg.has(#Verb)) {
+        //   return true
         // }
+        if (msg = 'install') {
+          vscode.window.showInformationMessage(msg.text());
+        } else {
+          vscode.window.showInformationMessage("yay");
+        }
+        switch (message.command) {
+          case 'alert':
+            return;
+          case 'debug':
+            vscode.commands.executeCommand("workbench.action.debug.start");
+            return;
+        }
       },
       null,
     );
@@ -85,7 +90,6 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
 			</head>
 
 			<body>
-			<section class="wrapper">
       <div class="container">
             <div class="content">
               <ul id="messages">
@@ -95,7 +99,6 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
               <input id="messageBox" type="text" placeholder="Send a message" required>
               <button id="sendButton" class="add-color-button">🗨</button>
       </div>
-			</section>
 			<script nonce="${nonce}" src="${scriptUri}"></script>
       </body>
 
