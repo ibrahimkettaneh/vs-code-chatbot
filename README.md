@@ -4,7 +4,7 @@
 
 Visual Studio Code chatbot extension developed to enable chatbot based control of Visual Studio Code. The chatbot will be displayed in activity bar of VS Code editor, the Sidebar of VS Code editor will have one view loaded with custom UI (HTML)
 
-## Visual Studio code Commands
+## Visual Studio Code Commands
 
 This extension lets you debug and activate notifications using user input inside the chatbot interface.
 
